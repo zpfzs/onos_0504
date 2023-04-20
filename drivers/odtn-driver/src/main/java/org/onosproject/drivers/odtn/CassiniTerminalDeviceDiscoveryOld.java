@@ -144,9 +144,9 @@ public class CassiniTerminalDeviceDiscoveryOld
     @Override
     public DeviceDescription discoverDeviceDetails() {
         return new DefaultDeviceDescription(handler().data().deviceId().uri(),
-                                            Device.Type.TERMINAL_DEVICE,
+                                            Device.Type.ROADM_OTN,
                                             "EDGECORE",
-                                            "Cassini",
+                                            "Cassini_",
                                             "OcNOS",
                                             "",
                                             new ChassisId("1"));

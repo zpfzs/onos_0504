@@ -54,12 +54,30 @@ background-color: #dcdcdc;
 }
 #bar1{
     width: 600px;
-    height:400px;
+    height:40%;
     z-index: 100px;
     align: center;
-    margin:40px auto;
+    margin:0px auto;
 }
-
+#bar2{
+    width:600px;
+    height:60%;
+    align: center;
+    margin:0px auto;
+    font-size:70px;
+}
+#bar1 p{
+    float:right;
+    font-size:40px;
+}
+#bar2 p{
+    text-align: center;
+    margin:0px auto;
+}
+#occupy{
+width:100%;
+height:35%;
+}
 .switch img{
     float:left;
     margin-top: 20px;

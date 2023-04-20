@@ -150,6 +150,11 @@ left:240px;
 .bigbox input:checked~#main_nav{
 left:0px;
 }
+.icon{
+margin-left:30px;
+}
+
+
 img{
 max-width:30px;
 margin-left:30px;
@@ -169,4 +174,8 @@ transition:all .5s;
 }
 .bigbox input:checked~.export{
 left:240px;
+}
+.pullIcon{
+margin-left:auto;
+margin-right:10px;
 }

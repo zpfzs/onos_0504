@@ -69,17 +69,13 @@ export class RoadmDeviceComponent extends TableBaseImpl implements OnInit, OnDes
     meterTip = 'Show meter view for selected device';
     pipeconfTip = 'Show pipeconf view for selected device';
 
-    public picUrl='https://pic2.zhimg.com/80/v2-6a9d7ae6a58b0c147c66222024cd273b_720w.jpg?source=d16d100b';
-    public picUrl1='https://pic3.zhimg.com/80/v2-a6c3103f731b16d68a7f4d815969e249_720w.jpg?source=d16d100b';
-    public picUrl2='https://pic2.zhimg.com/v2-f96eed5df9f4d53d77c5151c9efbc2bd_b.jpg';
-    public picUrl3='https://pic2.zhimg.com/v2-8035ed5023a1897c3e541d6c7dfd1411_b.jpg';
-    public picUrl4='https://pic2.zhimg.com/v2-bee00f860d867504fc9417cdbb706171_b.jpg';
-    public picUrl5='https://pic3.zhimg.com/v2-68cbe763ac287d1ea583fde16c97bcda_b.jpg';
-    public picUrl6='https://pic4.zhimg.com/v2-9dc5f402f62c3c2e943d0f83328f873b_b.jpg';
-    public picUrl7='https://pic3.zhimg.com/v2-9f960ae048d0eec9111ed233880f527e_b.jpg';
+
     public reveal1:boolean=false;
     public reveal2:boolean=false;
     public reveal3:boolean=false;
+    public pull1:boolean=false;
+    public pull2:boolean=false;
+    public pull3:boolean=false;
 
     constructor(
         protected fs: FnService,

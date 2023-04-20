@@ -39,8 +39,8 @@ button:hover{
     width: 30%;
     height:900px;
 }
-.head img{
-    max-width: 20px;
+.head svg{
+
     float:left;
     margin-top:25px;
     margin-left:20px;

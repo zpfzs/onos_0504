@@ -1,27 +1,140 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 declare var echarts:any;
+import {
+    FnService,
+    LogService,
+    WebSocketService,
+    SortDir, TableBaseImpl, TableResponse
+} from 'gui2-fw-lib';
 @Component({
   selector: 'roadm-app-dcn',
   templateUrl: './dcn.component.html',
   styleUrls: ['./dcn.component.css']
 })
 export class DcnComponent implements OnInit {
-  public pic3 = "https://pic4.zhimg.com/80/v2-207e1cf40966e6f3f18fd6558015de3f_720w.jpg";
-  public pic4 = "https://pic1.zhimg.com/v2-bb49423ef1aebdeb235712ad8e358f2c_b.jpg";
-  public pic5 = "https://pic2.zhimg.com/v2-d46bbb5c6a0d82c5b32aaa82c93563fd_b.jpg";
-  public pic6 = "https://pic2.zhimg.com/v2-41dd4eb85d724594cbd02a26e63d55bd_b.jpg";
-  public pic7 = "https://pic4.zhimg.com/v2-8a230069918cfe3fff264c9f48be07b3_b.jpg";
-  public defender:number=5;
-  public wlan:number=3;
-  public switch:number=2;
-  public server:number=8;
+
+  public defender:number=0;
+  public wlan:number=0;
+  public switch:number=0;
+  public server:number=0;
   public option1:any;
   public option2:any;
   public option3:any;
   public option4:any;
-  constructor() { }
-
-  ngOnInit() {
+  public handlers:any[]=[];
+  public device:any;
+  public port:any;
+  public control:any;
+  public gateway_50:number=0;
+  public switch_50:number=0;
+  public GE:number=0;
+  public GE_10:number=0;
+  public GE_40:number=0;
+  public GE_100:number=0;
+  public used:number=0;
+  public free:number=0;
+  public control_count={
+    member2:{
+        cpu:0,
+        mem:0,
+        disk:0
+    },
+    member3:{
+        cpu:0,
+        mem:0,
+        disk:0
+    },
+    member1:{
+        cpu:0,
+        mem:0,
+        disk:0
+    }
+  }
+  constructor(          protected fs: FnService,
+                        protected log: LogService,
+                        protected wss: WebSocketService,) { }
+  test(){
+    console.log(this.control);
+    let Device=JSON.parse(this.device);
+    this.defender=Device.firewall;
+    this.wlan=Device.gateway;
+    this.switch=Device.switchDevice;
+    this.server=Device.server;
+    this.gateway_50=Device.moreGateway;
+    this.switch_50=Device.moreSwitch;
+    let Port=JSON.parse(this.port);
+    this.GE=Port.ge;
+    this.GE_10=Port.tenGe;
+    this.GE_40=Port.fortyGe;
+    this.GE_100=Port.hundredGe;
+    this.used=Port.totalUsed;
+    this.free=Port.totalFree;
+    let Control=JSON.parse(this.control)
+    this.control_count.member2.mem=Number(Control[0].memoryUseRatio.ratio.slice(0,-1));
+    this.control_count.member3.mem=Number(Control[1].memoryUseRatio.ratio.slice(0,-1));
+    this.control_count.member1.mem=Number(Control[2].memoryUseRatio.ratio.slice(0,-1));
+    console.log(this.control_count.member2.mem);
+    console.log(this.control_count.member3.mem);
+    console.log(this.control_count.member1.mem);
+    this.control_count.member2.disk=Number(Control[0].fileUseRatios[0].usePercent)*100;
+    this.control_count.member3.disk=Number(Control[1].fileUseRatios[0].usePercent)*100;
+    this.control_count.member1.disk=Number(Control[2].fileUseRatios[0].usePercent)*100;
+    console.log(this.control_count.member2.disk);
+    console.log(this.control_count.member3.disk);
+    console.log(this.control_count.member1.disk);
+    let cpu1=0;
+    for(let i=0;i<Control[0].cpuUseRatios.length;i++){
+        cpu1 += Number(Control[0].cpuUseRatios[i].user.slice(0,-1));
+        cpu1 += Number(Control[0].cpuUseRatios[i].system.slice(0,-1));
+    }
+    cpu1 /= Control[0].cpuUseRatios.length;
+    let trans1=cpu1.toFixed(1);
+    this.control_count.member2.cpu=Number(trans1);
+    console.log(this.control_count.member2.cpu);
+    let cpu2=0;
+    for(let i=0;i<Control[1].cpuUseRatios.length;i++){
+        cpu2 += Number(Control[1].cpuUseRatios[i].user.slice(0,-1));
+        cpu2 += Number(Control[1].cpuUseRatios[i].system.slice(0,-1));
+    }
+    cpu2 /= Control[1].cpuUseRatios.length;
+    let trans2=cpu2.toFixed(1);
+    this.control_count.member3.cpu=Number(trans2);
+    console.log(this.control_count.member3.cpu);
+    let cpu3=0;
+    for(let i=0;i<Control[2].cpuUseRatios.length;i++){
+        cpu3 += Number(Control[2].cpuUseRatios[i].user.slice(0,-1));
+        cpu3 += Number(Control[2].cpuUseRatios[i].system.slice(0,-1));
+    }
+    cpu3 /= Control[2].cpuUseRatios.length;
+    let trans3=cpu3.toFixed(1);
+    this.control_count.member1.cpu=Number(trans3);
+    console.log(this.control_count.member1.cpu);
+//     字符串转数字
+  }
+  SendMessageToBackward(){
+                if(this.wss.isConnected){
+                    this.wss.sendEvent('dcnRequest',{
+                    'dcnStatus':'get',
+                    });
+                    this.log.info('websocket发送helloworld成功');
+                }
+  }
+  ReceiveMessageFromBackward(){
+          this.wss.bindHandlers(new Map<string,(data)=>void>([
+              ['dcnResponse',(data)=>{
+                  this.log.info(data);
+                  this.device = data['device'];
+                  this.port = data['port'];
+                  this.control = data['control'];
+              }],
+          ]));
+          this.handlers.push('dcnResponse1');
+          this.SendMessageToBackward();
+          setTimeout(() => {this.test();},100);
+  }
+  ngOnInit(){
+  }
+  dom() {
   let myChart1=echarts.init(document.getElementById('chart1'));
   this.option1 = {
     tooltip: {
@@ -52,8 +165,8 @@ export class DcnComponent implements OnInit {
           show: false
         },
         data: [
-          { value: 5, name: '交换机' },
-          { value: 5, name: '网关' }
+          { value: this.switch_50, name: '交换机' },
+          { value: this.gateway_50, name: '网关' }
         ]
       }
     ]
@@ -62,8 +175,8 @@ export class DcnComponent implements OnInit {
   let myChart2=echarts.init(document.getElementById('part21'));
   let datas = [
     [
-      { name: '占用', value: 30 },
-      { name: '空闲', value: 70 }
+      { name: '占用', value: this.used },
+      { name: '空闲', value: this.free }
     ]
   ];
   this.option2 = {
@@ -71,9 +184,9 @@ export class DcnComponent implements OnInit {
       text: '使用情况',
       left: 'center',
       textStyle: {
-        color: '#999',
+        color: 'black',
         fontWeight: 'normal',
-        fontSize: 14
+        fontSize: 20
       }
     },
     series: datas.map(function (data, idx) {
@@ -84,7 +197,7 @@ export class DcnComponent implements OnInit {
         top: top + '%',
         height: '100%',
         left: 'center',
-        width: 400,
+        width: 300,
         itemStyle: {
           borderColor: '#fff',
           borderWidth: 1
@@ -127,10 +240,10 @@ export class DcnComponent implements OnInit {
   let myChart3=echarts.init(document.getElementById('part22'));
   let datas1 = [
     [
-      { name: 'GE', value: 1 },
-      { name: '10GE', value: 144 },
-      { name: '40GE', value: 18 },
-      { name: '100GE', value: 3 }
+      { name: 'GE', value: this.GE },
+      { name: '10GE', value: this.GE_10 },
+      { name: '40GE', value: this.GE_40 },
+      { name: '100GE', value: this.GE_100 }
     ]
   ];
   this.option3 = {
@@ -138,9 +251,9 @@ export class DcnComponent implements OnInit {
       text: '带宽容量',
       left: 'center',
       textStyle: {
-        color: '#999',
+        color: 'black',
         fontWeight: 'normal',
-        fontSize: 14
+        fontSize: 20
       }
     },
     series: datas1.map(function (data, idx) {
@@ -151,7 +264,7 @@ export class DcnComponent implements OnInit {
         top: top + '%',
         height: '100%',
         left: 'center',
-        width: 400,
+        width: 300,
         itemStyle: {
           borderColor: '#fff',
           borderWidth: 1
@@ -198,9 +311,9 @@ export class DcnComponent implements OnInit {
     dataset: {
       source: [
         ['product', 'CPU使用率', 'MEM使用率', 'DISK使用率'],
-        ['member2', 43.3, 85.8, 93.7],
-        ['member3', 83.1, 73.4, 55.1],
-        ['member1', 86.4, 65.2, 82.5]
+        ['member2', this.control_count.member2.cpu, this.control_count.member2.mem, this.control_count.member2.disk],
+        ['member3', this.control_count.member3.cpu, this.control_count.member3.mem, this.control_count.member3.disk],
+        ['member1', this.control_count.member1.cpu, this.control_count.member1.mem, this.control_count.member1.disk]
       ]
     },
     xAxis: { type: 'category' },
@@ -211,5 +324,8 @@ export class DcnComponent implements OnInit {
   };
   myChart4.setOption(this.option4);
   }
-
+  ngAfterViewInit(){
+  this.ReceiveMessageFromBackward();
+  setTimeout(() => {this.dom();},100);
+  }
 }

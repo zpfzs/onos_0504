@@ -57,7 +57,8 @@ public class RoadmUiComponent {
             () -> ImmutableList.of(
                     new RoadmDeviceViewMessageHandler(),
                     new RoadmPortViewMessageHandler(),
-                    new RoadmFlowViewMessageHandler()
+                    new RoadmFlowViewMessageHandler(),
+                    new DagMessageHandler()
             );
 
     // Roadm UI extension

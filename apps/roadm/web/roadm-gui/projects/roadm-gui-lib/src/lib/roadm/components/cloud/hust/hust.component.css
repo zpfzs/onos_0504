@@ -1,0 +1,60 @@
+body{
+background-color: #f8f8ff;
+overflow-y: auto;
+}
+.title1{
+margin:10px auto;
+align:center;
+width:322px;
+height:82px;
+}
+#map1{
+float:left;
+width:800px;
+height:800px;
+margin-left:50px;
+}
+#png1{
+float:right;
+width:750px;
+height:800px;
+margin-right:50px;
+background-color: #fff;
+border-radius: 10px;
+}
+#connect{
+margin-left:10px;
+}
+
+.head svg{
+
+    float:left;
+    margin-top:25px;
+    margin-left:20px;
+    margin-bottom: 0px;
+}
+.head p{
+    float:left;
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+.head{
+    height: 60px;
+    margin: 0px;
+}
+.head hr{
+    width:95%;
+    position: relative;
+    left: 0px;
+    margin-top: 0px;
+}
+.clear{
+clear:both;
+}
+#status{
+margin-top:30px;
+width:800px;
+height:310px;
+background-color: #fff;
+border-radius: 10px;
+}

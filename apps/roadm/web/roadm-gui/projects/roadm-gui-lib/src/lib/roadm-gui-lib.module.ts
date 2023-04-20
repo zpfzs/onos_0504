@@ -36,6 +36,7 @@ import { Firberhome2Component } from './roadm/components/cloud/firberhome2/firbe
 import { SimuComponent } from './roadm/components/topology/simu/simu.component';
 import { DciComponent } from './roadm/components/network/dci/dci.component';
 import { DcnComponent } from './roadm/components/network/dcn/dcn.component';
+import { HustComponent } from './roadm/components/cloud/hust/hust.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { DcnComponent } from './roadm/components/network/dcn/dcn.component';
         SimuComponent,
         DciComponent,
         DcnComponent,
+        HustComponent,
     ],
     imports: [
         RoadmRoutingModule,

@@ -85,6 +85,15 @@ public class RoadmFlowViewMessageHandler extends UiMessageHandler {
     private static final String HAS_ATTENUATION = "hasAttenuation";
     private static final String CHANNEL_FREQUENCY = "channelFrequency";
 
+//    private static final String HI_SGP_RESP = "yiResponse";
+//    private static final String THERECEIVE = "receive message";
+//
+//    public String theDCI_1;
+//    public String theDCI_2;
+//    private static final String HELLOWORLD_REQ = "helloworldRequest";
+//    private static final String THE_FIRST_WORD = "thefirstword";
+//    private static final String THE_SECOND_WORD = "thesecondworld";
+
     private static final String[] COLUMN_IDS = {
             ID, FLOW_ID, APP_ID, GROUP_ID, TABLE_ID, PRIORITY, TIMEOUT,
             PERMANENT, STATE, IN_PORT, OUT_PORT, CHANNEL_SPACING, CHANNEL_MULTIPLIER,

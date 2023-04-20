@@ -453,10 +453,11 @@ public abstract class TopologyViewMessageHandlerBase extends TopoologyTrafficMes
         // chose NOT to add debug messages, since this is called every few seconds
         Topology topology = services.topology().currentTopology();
         LionBundle lion = getLionBundle(LION_TOPO);
-        String panelTitle = lion.getSafe("title_panel_summary");
+        //String panelTitle = lion.getSafe("title_panel_summary");
+        String panelTitle = "控制器信息";
 
         return new PropertyPanel(panelTitle, "bird")
-                .addProp(VERSION, lion.getSafe(VERSION), version)
+//                .addProp(VERSION, lion.getSafe(VERSION), version)
                 .addSeparator()
                 .addProp(DEVICES, lion.getSafe(DEVICES), services.device().getDeviceCount())
                 .addProp(LINKS, lion.getSafe(LINKS), topology.linkCount())

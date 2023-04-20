@@ -14,20 +14,20 @@ declare var echarts:any;
 })
 export class Firberhome1Component implements OnInit {
 
-  public pic3 = "https://pic4.zhimg.com/80/v2-207e1cf40966e6f3f18fd6558015de3f_720w.jpg";
+
   public option1:any;
   public option2:any;
   public option3:any;
   public adress:string="10.112.231.75";
-  public mirror_image:any[]=["镜像1","镜像2","镜像3","镜像4"];
-  public segment:any[]=["网段1","网段2","网段3"];
-  public config:any[]=["配置1","配置2","配置3"];
+  public mirror_image:any[]=["8113da59-e608-40ab-a7e9-d4191127dc88"];
+  public segment:any[]=["8a98c674-bea1-423f-a671-b4a64da0b3a9"];
+  public config:any[]=["4U8G100G"];
   public vm:any={
     name:"",
     id:"",
     region:"",
     create_time:"",
-    ip:"",
+//     ip:"",
     image:"",
     status:""
   }
@@ -54,20 +54,55 @@ export class Firberhome1Component implements OnInit {
             protected log: LogService,
             protected wss: WebSocketService,) {
   }
+
+  reset(){
+  this.vmlist=[];
+  this.delete_name_list=[];
+  if(this.recj){
+    let carrier={
+                  name:"",
+                  id:"",
+                  region:"",
+                  create_time:"",
+//                   ip:"",
+                  image:"",
+                  status:""
+                };
+    for(let i=0;i<this.recj.servers.length;i++){
+
+        let uuu=this.recj.servers[i];
+        carrier.name=uuu.name;
+        carrier.id=uuu.id;
+        carrier.region=uuu["OS-EXT-AZ:availability_zone"];
+        carrier.create_time=uuu.created;
+//         carrier.ip="乱了";
+        carrier.image=uuu.image.id;
+        carrier.status=uuu.status;
+        console.log(carrier);
+        this.vmlist.push(JSON.parse(JSON.stringify(carrier)));
+        this.delete_name_list.push(JSON.parse(JSON.stringify(carrier.name)));
+    }
+  }
+  this.storage.set('vmlist',this.vmlist);//装入服务
+  this.storage.set('namelist',this.delete_name_list);
+  }
   test(){
   console.log('接收',this.receive);
   console.log('类型',typeof this.receive);
   let aq = JSON.parse(this.receive);
-//   console.log(aq);
-  this.recj = aq;
-  console.log(this.recj.data.neList);
-//     console.log('接收',this.receiveData);
+   console.log(aq);
+   this.recj = aq;
+  console.log(this.recj.servers);
+  this.setValue();//需要重置业务列表用this.reset()，正常添加用this.setValue()；注意这两个函数不同时运行
+//   this.reset();
   }
   SendMessageToBackward(){
               if(this.wss.isConnected){
-                  this.wss.sendEvent('helloworldRequest',{
-                  'thefirstword':'hello',
-                  'thesecondworld':'world',
+                  this.wss.sendEvent('vmCreateRequest',{
+                  'name':this.creat_form.name,
+                  'imageRef':this.creat_form.image,
+                  'uuid':this.creat_form.seg,
+                  'flavorRef':this.creat_form.cfg,
                   });
                   this.log.info('websocket发送helloworld成功');
               }
@@ -134,17 +169,26 @@ export class Firberhome1Component implements OnInit {
   this.storage.set('namelist',this.delete_name_list);
 
   }
-  submit() {
-    this.vm.name=this.creat_form.name;
-    this.vm.id="待确定";
-    this.vm.region="待确定";
-    this.vm.create_time="待确定";
-    this.vm.ip="待确定";
-    this.vm.image=this.creat_form.image;
-    this.vm.status="待确定";
-    this.storage.set('vm',this.vm);
-    this.vmpush();
-    console.log("列表长度",this.vmlist.length);
+  setValue() {
+    if(this.recj){
+        let uuu=this.recj.servers[this.recj.servers.length-1];
+        this.vm.name=uuu.name;
+            this.vm.id=uuu.id;
+            this.vm.region=uuu["OS-EXT-AZ:availability_zone"];
+            this.vm.create_time=uuu.created;
+//             this.vm.ip="乱了";
+            this.vm.image=uuu.image.id;
+            this.vm.status=uuu.status;
+            this.storage.set('vm',this.vm);
+            this.vmpush();
+            console.log("列表长度",this.vmlist.length);
+    }
+
+  }
+  submit(){
+//   this.SendMessageToBackward();
+    this.ReceiveMessageFromBackward();
+
   }
   ngOnInit() {
     let myChart1=echarts.init(document.getElementById('bar1'));

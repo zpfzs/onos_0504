@@ -28,6 +28,7 @@ import { Firberhome2Component } from './roadm/components/cloud/firberhome2/firbe
 import { SimuComponent } from './roadm/components/topology/simu/simu.component';
 import { DciComponent } from './roadm/components/network/dci/dci.component';
 import { DcnComponent } from './roadm/components/network/dcn/dcn.component';
+import { HustComponent } from './roadm/components/cloud/hust/hust.component';
 
 const appRoutes: Routes = [
     {
@@ -83,6 +84,10 @@ const appRoutes: Routes = [
                      {
                          path: 'fiberhome2',
                          component: Firberhome2Component
+                     },
+                     {
+                         path: 'hust',
+                         component: HustComponent
                      },
                      {
                          path: 'dci',

@@ -2,4 +2,279 @@
 <div id="mininet">
   <iframe src="http://localhost:8181/onos/ui/#/topo2" frameborder="0"></iframe>
 </div>
+<div id="config">
+  <div id="topbar">
+      <svg t="1681716179588" *ngIf="sig" (click)="comeOut()" id="icon1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3236" width="20" height="20"><path d="M854.016 739.328l-313.344-309.248-313.344 309.248q-14.336 14.336-32.768 21.504t-37.376 7.168-36.864-7.168-32.256-21.504q-29.696-28.672-29.696-68.608t29.696-68.608l376.832-373.76q14.336-14.336 34.304-22.528t40.448-9.216 39.424 5.12 31.232 20.48l382.976 379.904q28.672 28.672 28.672 68.608t-28.672 68.608q-14.336 14.336-32.768 21.504t-37.376 7.168-36.864-7.168-32.256-21.504z" p-id="3237"></path></svg>
+      <svg t="1681716129526" *ngIf="!sig" (click)="comeOut()" id="icon2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2608" width="30" height="30"><path d="M722.773333 381.44a64 64 0 0 1 90.453334 90.453333l-252.970667 253.013334a68.266667 68.266667 0 0 1-96.512 0l-253.013333-253.013334a64 64 0 0 1 90.538666-90.453333L512 592.128l210.773333-210.773333z" fill="#111111" p-id="2609"></path></svg>
+    <p>用户配置</p>
+  </div>
+  <div id="info" *ngIf="!sig">
+      <div id="input">
+        <p class="title">业务配置</p>
+        <hr class="hr0">
+          <div class="content">
+              <p class="title1">原始数据</p>
+              <div class="content11">
+                  <span>
+                      <div class="occupy"></div>
+                      <p>所在节点:</p>
+                      <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="rawnode" class="panel" placeholder="请输入原始数据所在节点" [(ngModel)]="rawData.node"/>
+                      <div class="clear"></div>
+                  </span>
+                  <span>
+                      <div class="occupy"></div>
+                      <p>对应任务:</p>
+                      <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="rawmission" class="panel" placeholder="请输入原始数据对应任务序号" [(ngModel)]="rawData.task"/>
+                      <div class="clear"></div>
+                  </span>
+                  <span>
+                      <p>存储资源消耗:</p>
+                      <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="rawuse" class="panel" placeholder="请输入原始数据存储资源消耗" [(ngModel)]="rawData.resource"/>
+                      <div class="clear"></div>
+                  </span>
+                  <button class="but1" (click)="submit1();" onclick="document.getElementById('rawnode').value='';document.getElementById('rawmission').value='';document.getElementById('rawuse').value=''">添加</button>
+                  <button class="but3" (click)="clear1();" onclick="document.getElementById('rawnode').value='';document.getElementById('rawmission').value='';document.getElementById('rawuse').value=''">清空提交</button>
+                  <div class="clear"></div>
+              </div>
+              <div class="content12">
+                  <p>已配置的原始数据信息:</p>
+                  <div class="show1">
+                      <p>原始数据数:{{service.raw_data.length}}</p>
+                      <table id="raw_tab">
+                          <thead>
+                          <tr>
+                              <th>序号</th>
+                              <th>所在节点</th>
+                              <th>对应任务</th>
+                              <th>存储资源消耗</th>
+                          </tr>
+                          </thead>
+                          <tr *ngFor="let item of service.raw_data;let i = index">
+                              <td>{{i}}</td>
+                              <td>{{item.node}}</td>
+                              <td>{{item.task}}</td>
+                              <td>{{item.resource}}</td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+              <div class="clear"></div>
+          </div>
+          <hr class="hr1">
+          <div class="content">
+              <p class="title1">任务信息</p>
+              <div class="content11">
+
+                  <span>
+                    <p>输入任务序号:</p>
+                    <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="resourcenode" class="panel" placeholder="请输入任务序号" [(ngModel)]="Use.serial"/>
+                    <div class="clear"></div>
+                  </span>
+                  <span>
+                    <div class="occupy"></div>
+                    <p>计算资源:</p>
+                    <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="resourcecal" class="panel" placeholder="请输入计算资源消耗" [(ngModel)]="Use.calculate"/>
+                    <div class="clear"></div>
+                  </span>
+                  <span>
+                    <div class="occupy"></div>
+                    <p>传输资源:</p>
+                    <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="resourcetrans" class="panel" placeholder="请输入传输资源消耗" [(ngModel)]="Use.transport"/>
+                    <div class="clear"></div>
+                  </span>
+                  <button class="but1" (click)="submit2();" onclick="document.getElementById('resourcenode').value='';document.getElementById('resourcecal').value='';document.getElementById('resourcetrans').value=''">添加</button>
+                  <button class="but3" (click)="clear2();" onclick="document.getElementById('resourcenode').value='';document.getElementById('resourcecal').value='';document.getElementById('resourcetrans').value=''">清空提交</button>
+                  <div class="clear"></div>
+              </div>
+              <div class="content12">
+                  <p>已配置的任务信息:</p>
+                  <div class="show1">
+                      <p>任务数:{{service.use.length}}</p>
+                      <table id="resource_tab">
+                          <thead>
+                          <tr>
+                              <th>任务序号</th>
+                              <th>计算资源</th>
+                              <th>传输资源</th>
+                          </tr>
+                          </thead>
+                          <tr *ngFor="let item of service.use">
+                              <td>{{item.serial}}</td>
+                              <td>{{item.calculate}}</td>
+                              <td>{{item.transport}}</td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+              <div class="clear"></div>
+          </div>
+          <hr class="hr1">
+          <div class="content">
+              <p class="title1">任务关系</p>
+              <div class="content11">
+
+                  <span>
+                     <div class="occupy"></div>
+                     <p>当前任务:</p>
+                     <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="connectnode" class="panel" placeholder="请输入当前任务序号" [(ngModel)]="Connect.serial"/>
+                     <div class="clear"></div>
+                  </span>
+                  <span>
+                     <div class="occupy"></div>
+                     <p>后置任务:</p>
+                     <input type="text" onkeyup="this.value=this.value.replace(/[^0-9\,]/g,'')" id="connectcon" class="panel" placeholder="请输入后置任务序号" [(ngModel)]="Connect.connection"/>
+                     <div class="clear"></div>
+                  </span>
+                  <button class="but1" (click)="submit3();" onclick="document.getElementById('connectnode').value='';document.getElementById('connectcon').value=''">添加</button>
+                  <button class="but3" (click)="clear3();" onclick="document.getElementById('connectnode').value='';document.getElementById('connectcon').value=''">清空提交</button>
+                  <div class="clear"></div>
+              </div>
+              <div class="content12">
+                  <p>已配置的任务关系:</p>
+                  <div class="show1">
+                      <table id="connect_tab">
+                          <thead>
+                          <tr>
+                              <th>当前任务</th>
+                              <th>后置任务</th>
+                          </tr>
+                          </thead>
+                          <tr *ngFor="let item of service.connect">
+                              <td>{{item.serial}}</td>
+                              <td>{{item.connection}}</td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+              <div class="clear"></div>
+          </div>
+          <button class="but2" (click)="submit4();">业务提交</button>
+          <div class="clear"></div>
+      </div>
+      <div id="form">
+        <p class="title">配置信息</p>
+          <hr class="hr0">
+          <div class="show2">
+            <p>业务数量:{{service_list.length}}</p>
+              <table id="sub_tab">
+                  <thead>
+                  <tr>
+                      <th>业务序号</th>
+                      <th>原始数据数</th>
+                      <th>原始数据</th>
+                      <th>任务数</th>
+                      <th>任务信息</th>
+                      <th>任务关系</th>
+                  </tr>
+                  </thead>
+                  <tr *ngFor="let item of service_list;let i = index">
+                      <td>{{i}}</td>
+                      <td>{{item.raw_data.length}}</td>
+                      <td><p class="detail" (click)="detail1(i)">详情</p></td>
+                      <td>{{item.use.length}}</td>
+                      <td><p class="detail" (click)="detail2(i)">详情</p></td>
+                      <td><p class="detail" (click)="detail3(i)">详情</p></td>
+                  </tr>
+              </table>
+              <div class="detailshow" *ngIf="raw_index">
+
+                  <svg t="1681717596624" (click)="vanish1()" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4261" width="20" height="20"><path d="M617.92 516.096l272 272-101.824 101.824-272-272-272 272-101.856-101.824 272-272-275.008-275.04L241.056 139.2l275.04 275.04 275.04-275.04 101.824 101.824-275.04 275.04z" fill="#000000" p-id="4262"></path></svg>
+                  <div class="clear"></div>
+                  <div class="detailform">
+                      <table id="dash1">
+                          <thead>
+                          <tr>
+                              <th>序号</th>
+                              <th>所在节点</th>
+                              <th>对应任务</th>
+                              <th>存储资源消耗</th>
+                          </tr>
+                          </thead>
+                          <tr *ngFor="let item of raw_data_detail;let i = index">
+                              <td>{{i}}</td>
+                              <td>{{item.node}}</td>
+                              <td>{{item.task}}</td>
+                              <td>{{item.resource}}</td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+              <div class="detailshow" *ngIf="use_index">
+
+                  <svg t="1681717596624" (click)="vanish2()" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4261" width="20" height="20"><path d="M617.92 516.096l272 272-101.824 101.824-272-272-272 272-101.856-101.824 272-272-275.008-275.04L241.056 139.2l275.04 275.04 275.04-275.04 101.824 101.824-275.04 275.04z" fill="#000000" p-id="4262"></path></svg>
+                  <div class="clear"></div>
+                  <div class="detailform">
+                      <table id="dash2">
+                          <thead>
+                          <tr>
+                              <th>任务序号</th>
+                              <th>计算资源</th>
+                              <th>传输资源</th>
+                          </tr>
+                          </thead>
+                          <tr *ngFor="let item of use_detail;let i = index">
+                              <td>{{item.serial}}</td>
+                              <td>{{item.calculate}}</td>
+                              <td>{{item.transport}}</td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+              <div class="detailshow" *ngIf="connect_index">
+
+                  <svg t="1681717596624" (click)="vanish3()" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4261" width="20" height="20"><path d="M617.92 516.096l272 272-101.824 101.824-272-272-272 272-101.856-101.824 272-272-275.008-275.04L241.056 139.2l275.04 275.04 275.04-275.04 101.824 101.824-275.04 275.04z" fill="#000000" p-id="4262"></path></svg>
+                  <div class="clear"></div>
+                  <div class="detailform">
+                      <table id="dash3">
+                          <thead>
+                          <tr>
+                              <th>当前任务</th>
+                              <th>后置任务</th>
+                          </tr>
+                          </thead>
+                          <tr *ngFor="let item of connect_detail;let i = index">
+                              <td>{{item.serial}}</td>
+                              <td>{{item.connection}}</td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="occupy1"></div>
+          <button id="submit" (click)="ReceiveMessageFromBackward()">提交</button>
+          <div class="occupy1"></div>
+          <button id="reset" (click)="reset()">清空信息</button>
+          <div class="clear"></div>
+          <hr class="hr1">
+          <p class="title1">输出结果</p>
+          <div class="show2" id="div_service">
+              <div *ngFor="let item of output;let i = index">
+                  <p>业务{{i+1}}完成时延:{{item.finish_time}}</p>
+                  <table>
+                      <thead>
+                      <tr>
+                          <th>隶属业务</th>
+                          <th>源节点</th>
+                          <th>源节点任务</th>
+                          <th>宿节点</th>
+                          <th>宿节点任务</th>
+                          <th>路径</th>
+                      </tr>
+                      </thead>
+                      <tr *ngFor="let item1 of item.tasks_routing;">
+                          <td>{{item1.service_serial}}</td>
+                          <td>{{item1.source_node}}</td>
+                          <td>{{item1.source_task}}</td>
+                          <td>{{item1.end_node}}</td>
+                          <td>{{item1.end_task}}</td>
+                          <td>{{item1.path}}</td>
+                      </tr>
+                  </table>
+              </div>
+          </div>
+      </div>
+    <div class="clear"></div>
+  </div>
+
+</div>
 </body>
