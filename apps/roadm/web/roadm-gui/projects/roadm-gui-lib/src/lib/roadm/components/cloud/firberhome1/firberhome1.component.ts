@@ -49,12 +49,17 @@ export class Firberhome1Component implements OnInit {
     time:""
   }
   public recj:any;
+  public del_serial=-1;
+  public del_id='';
   constructor(public storage:StorageService,
             protected fs: FnService,
             protected log: LogService,
             protected wss: WebSocketService,) {
   }
-
+  choose(i:number){
+  this.del_serial=i;
+  console.log(this.del_serial);
+  }
   reset(){
   this.vmlist=[];
   this.delete_name_list=[];
@@ -85,6 +90,7 @@ export class Firberhome1Component implements OnInit {
   }
   this.storage.set('vmlist',this.vmlist);//装入服务
   this.storage.set('namelist',this.delete_name_list);
+
   }
   test(){
   console.log('接收',this.receive);
@@ -106,6 +112,30 @@ export class Firberhome1Component implements OnInit {
                   });
                   this.log.info('websocket发送helloworld成功');
               }
+  }
+  SendDelete(){
+                if(this.wss.isConnected){
+                    this.wss.sendEvent('vmDeleteRequest',{
+                    'id':this.del_id,
+                    });
+                    this.log.info('websocket发送helloworld成功');
+                }
+  }
+  receiveDelete(){
+   this.wss.bindHandlers(new Map<string,(data)=>void>([
+              ['vmDeleteResponse',(data)=>{
+                  this.log.info(data);
+  //                 this.receiveData.status = data['status'];
+  //                 this.receiveData.u_name = data['user_name'];
+  //                 this.receiveData.T_name = data['tenant_name'];
+  //                 this.receiveData.time = data['creat_time'];
+                  this.receive = data['receive message'];
+              }]
+          ]));
+          this.handlers.push('vmDeleteResponse');
+          this.SendDelete();
+
+
   }
   ReceiveMessageFromBackward(){
         this.wss.bindHandlers(new Map<string,(data)=>void>([
@@ -159,6 +189,8 @@ export class Firberhome1Component implements OnInit {
         this.storage.set('vmlist',this.vmlist);
         this.storage.set('namelist',this.delete_name_list);
     }
+    this.del_id=this.vmlist[this.del_serial].id;
+    console.log(this.del_id);
     window.location.reload();
 
   }

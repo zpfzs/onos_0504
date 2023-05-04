@@ -1,31 +1,44 @@
 body{
-background-color: #f8f8ff;
-overflow-y: auto;
+overflow-y:auto;
+background-color: #dcdcdc;
 }
-.title1{
-margin:10px auto;
-align:center;
-width:322px;
-height:82px;
+.main{
+width:100%;
+height:100%;
 }
-#map1{
-float:left;
-width:800px;
-height:800px;
-margin-left:50px;
-}
-#png1{
-float:right;
-width:750px;
-height:800px;
-margin-right:50px;
-background-color: #fff;
-border-radius: 10px;
-}
-#connect{
-margin-left:10px;
-}
+button{
+    /*display: inline-block;*/
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+    /**display: inline;*/
+    vertical-align: baseline;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 2em .55em;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
 
+}
+button:hover{
+    text-decoration: none;
+}
+.whole_box{
+    background-color: #f8f8ff;
+    margin:30px;
+    border-radius: 10px;
+}
+#general_situation{
+    float:left;
+    width: 30%;
+    height:900px;
+}
 .head svg{
 
     float:left;
@@ -42,19 +55,155 @@ margin-left:10px;
     height: 60px;
     margin: 0px;
 }
-.head hr{
+.whole_box hr{
     width:95%;
     position: relative;
     left: 0px;
     margin-top: 0px;
 }
 .clear{
-clear:both;
+    clear:both;
 }
-#status{
-margin-top:30px;
-width:800px;
-height:310px;
-background-color: #fff;
-border-radius: 10px;
+.content{
+    width: 95%;
+    height:90%;
+    align: center;
+    margin:0 auto;
+    border: 5px solid #a9a9a9;
+}
+#content1{
+height:90%;
+}
+.sub_content{
+    width:100%;
+    height:33%;
+    box-sizing:border-box;
+}
+.chart{
+float:left;
+width:50%;
+height:100%
+}
+.illustration{
+float:left;
+width:50%;
+height:100%;
+}
+.inner_title{
+text-align:center;
+font:bold 30px "Arial";
+}
+.inner_content{
+text-align:center;
+font-size:20px;
+}
+#right{
+    float:left;
+    width: 65%;
+    height:960px;
+}
+#VM{
+    width: 100%;
+    height:570px;
+    margin-left:0px;
+}
+#content2{
+height:85%;
+overflow-y:auto;
+}
+#content2 table{
+    align: center;
+    margin:5px auto;
+    border-collapse: collapse;
+    /*border:2px solid black;*/
+    border-right: none;
+    border-left: none;
+}
+
+#content2 table td,#content2 table th{
+    /*border:0px;*/
+    /*width:300px;*/
+    text-align: center;
+    margin:5px auto;
+    border:1px solid #cad9ea;
+    color:#666;
+    height:30px;
+    border-right: none;
+    border-left: none;
+}
+
+#content2 table thead th{
+    background-color:#808080;
+    color:#ffffff;
+    width:300px;
+}
+#content2 table tr:nth-child(odd){
+    background:#f8f8ff;
+    border-right: none;
+    border-left: none;
+}
+#content2 table tr:nth-child(even){
+    background:#dcdcdc;
+    border-right: none;
+    border-left: none;
+}
+#deal_VM{
+    width: 100%;
+    height:300px;
+    margin-left:0px;
+    margin-top:0px;
+}
+#content3{
+height:70%;
+}
+#creat{
+    float:left;
+    width: 65%;
+    height:100%;
+}
+#delete{
+    float:left;
+    width: 35%;
+    height:100%;
+}
+#content3 p{
+    font:bold 30px "Arial";
+    margin-top:5px;
+    margin-left:20px;
+    margin-bottom:5px;
+}
+#content3 table{
+margin-left:35px;
+border-collapse:separate;
+border-spacing:0px 10px;
+}
+#content3 table td{
+width:300px;
+}
+.content3_down{
+margin-left:35px;
+}
+#content3 span{
+margin-left:1px;
+}
+#establish_but{
+float:right;
+margin-right:120px;
+}
+#delete_but{
+float:right;
+margin-right:80px;
+margin-top:50px;
+}
+#delete_span{
+margin-top:15px;
+}
+#DeleteVm{
+width:120px;
+}
+
+
+
+span select{
+width:215px;
 }

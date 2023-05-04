@@ -258,7 +258,7 @@
               <span>
                 选择虚拟机：
                 <select name="DeleteVm" id="DeleteVm" class="switch" [(ngModel)]="delete_vm">
-                  <option [value]="item" *ngFor="let item of delete_name_list">{{item}}</option>
+                  <option [value]="item" *ngFor="let item of delete_name_list;let i =index" (click)="choose(i)">{{item}}</option>
                 </select>
               </span>
             </div>

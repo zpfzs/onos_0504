@@ -1,225 +1,60 @@
 body{
-overflow-y:auto;
-background-color: #dcdcdc;
+background-color: #f8f8ff;
+overflow-y: auto;
 }
-#child1{
-    background-color: #f8f8ff;
-    float:left;
-    width: 45%;
-    height:450px;
-    margin:30px;
-    border-radius: 10px;
+.title1{
+margin:10px auto;
+align:center;
+width:322px;
+height:82px;
 }
-#child1 img{
-    max-width: 30px;
+#map1{
+float:left;
+width:800px;
+height:800px;
+margin-left:50px;
 }
-#head1 img{
-    max-width: 20px;
+#png1{
+float:right;
+width:750px;
+height:800px;
+margin-right:50px;
+background-color: #fff;
+border-radius: 10px;
+}
+#connect{
+margin-left:10px;
+}
+
+.head svg{
+
     float:left;
     margin-top:25px;
     margin-left:20px;
     margin-bottom: 0px;
 }
-#head1 p{
+.head p{
     float:left;
     font-size: 20px;
     margin-bottom: 0px;
 }
-#head1{
+.head{
     height: 60px;
     margin: 0px;
 }
-
-#child1 hr{
+.head hr{
     width:95%;
     position: relative;
     left: 0px;
     margin-top: 0px;
 }
-#table1{
-    overflow-y:auto;
-    width: 95%;
-    height:80%;
-    align: center;
-    margin:0 auto;
-    border: 5px solid #a9a9a9;
-}
-#child2{
-    background-color:#f8f8ff;
-    float:left;
-    width:45%;
-    height:450px;
-    margin:30px 30px 30px 0px;
-    border-radius: 10px;
-}
-#bar1{
-    width: 600px;
-    height:40%;
-    z-index: 100px;
-    align: center;
-    margin:0px auto;
-}
-#bar2{
-    width:600px;
-    height:60%;
-    align: center;
-    margin:0px auto;
-    font-size:70px;
-}
-#bar1 p{
-    float:right;
-    font-size:40px;
-}
-#bar2 p{
-    text-align: center;
-    margin:0px auto;
-}
-#occupy{
-width:100%;
-height:35%;
-}
-.switch img{
-    float:left;
-    margin-top: 20px;
-}
-.switch p{
-    float:left;
-}
-#DV img{
-    float:left;
-    margin-top: 20px;
-}
-#DV p{
-    float:left;
-}
-#child1 table{
-    align: center;
-    margin:0 auto;
-}
-
-#child1 table div{
-    background-color: #00abff;
-}
-
-#child1 td{
-    height:90px;
-    width: 350px;
-    align: center;
-    font-size: 20px;
-}
 .clear{
-    clear:both;
+clear:both;
 }
-#down{
-    background-color: #f8f8ff;
-    width:calc(90% + 30px);
-    margin-left: 30px;
-    height:400px;
-    border-radius: 10px;
-}
-#down img{
-    max-width: 30px;
-}
-#head3 img{
-    max-width: 20px;
-    float:left;
-    margin-top:25px;
-    margin-left:20px;
-    margin-bottom: 0px;
-}
-#head3 p{
-    float:left;
-    font-size: 20px;
-    margin-bottom: 0px;
-}
-#head3{
-    height: 60px;
-    margin: 0px;
-}
-
-#down hr{
-    width:98%;
-    position: relative;
-    left: 0px;
-    margin-top: 0px;
-}
-#table3{
-    width: 98%;
-    height:80%;
-    align: center;/*居中*/
-    margin:0 auto;/*居中*/
-    border: 5px solid #dcdcdc;
-    border-radius: 10px;
-    background-color: #dcdcdc;
-}
-#table3_left{
-    width: 80%;
-    height:92%;
-    border: 5px solid #dcdcdc;
-    overflow-y:auto;
-    margin-top: 8px;
-    margin-left: 8px;
-    float:left;
-    background-color: #f8f8ff;
-}
-#down table{
-    align: center;
-    margin:5px auto;
-    border-collapse: collapse;
-    border:2px solid black;
-    border-right: none;
-    border-left: none;
-}
-#down table tr{
-    height:70px;
-    font-size: 20px;
-    border:2px solid black;
-    border-right: none;
-    border-left: none;
-}
-#down table tr td{
-    border:0px;
-}
-#down table tr:first-child{
-    font-weight: bold;
-}
-.run{
-    color:green;
-}
-.lei{
-    color:blue;
-}
-.fai{
-    color:red;
-}
-#table3_right {
-    width: 17%;
-    height: 92%;
-    border: 5px solid #dcdcdc;
-    overflow-y: auto;
-    margin-top: 8px;
-    margin-right: 8px;
-    float:right;
-    background-color: #f8f8ff;
-}
-.table3_right_child{
-    align: center;/*居中*/
-    margin:10px auto;
-    width:90%;
-    height:43%;
-    border: 5px solid #a9a9a9;
-}
-#table3_right img{
-    max-width: 50px;
-    margin-right: 20px;
-    margin-top: 20px;
-}
-.littleleft{
-    float:left;
-}
-.littleright{
-    float:right;
-}
-.littleleft p {
-    text-align: center;
+#status{
+margin-top:30px;
+width:800px;
+height:310px;
+background-color: #fff;
+border-radius: 10px;
 }
